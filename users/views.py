@@ -36,28 +36,6 @@ def login(request):
     return render(request, 'users/login.html', {'uid': u_id})
 
 
-def show_args(request, num):
-    '''捕获 url 参数'''
-    return HttpResponse(num)
-
-
-def test_ajax(request):
-    '''显示 ajax 页面'''
-    return render(request, 'users/test_ajax.html')
-
-
-def ajax_handle(request):
-    '''ajax 请求处理'''
-    # 返回的 json 数据 {'res': 1}
-    return JsonResponse({'res': 1})
-
-
-def login_ajax(request):
-    '''显示 ajax 登录页面'''
-
-    return render(request, 'users/login_ajax.html')
-
-
 def login_ajax_check(request):
     '''ajax 登录校验'''
     # 1. 获取用户名和密码
@@ -94,25 +72,6 @@ def login_ajax_check(request):
         print('用户名或密码错误')
         return JsonResponse({'res': 0})
         #  return redirect('/login')
-
-
-# /set_cookie
-def set_cookie(request):
-    '''设置 cookie 信息'''
-    response = HttpResponse('设置 cookie')
-    # max_age 保存的秒
-    response.set_cookie('num', 1, max_age=14 * 24 * 3600)
-    #  expires=datetime.now() + timedelta(days=14))
-    # 返回 response
-    return response
-
-
-# /get_cookie
-def get_cookie(request):
-    '''取出 cookie 的值'''
-    # 取出 cookie num 的值
-    num = request.COOKIES['num']
-    return HttpResponse(num)
 
 
 def register_id(request):
@@ -207,15 +166,6 @@ def verify_code(request):
     im.save(buf, 'png')
     # 将内存中的图片数据返回给客户端，MIME 类型为图片 png
     return HttpResponse(buf.getvalue(), 'image/png')
-
-
-def url_reverse(request):
-    return render(request, 'users/url_reverse.html', {})
-
-
-def admin_index(request):
-    '''后台管理'''
-    return render(request, 'users/admin_index.html', {})
 
 
 def book_detail(request, bid):
