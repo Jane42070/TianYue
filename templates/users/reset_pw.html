@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>重置密码</title>
+	<link rel="stylesheet" href="/static/css/public.css" type="text/css" media="all">
+	<link rel="stylesheet" href="/static/css/rePw.css" type="text/css" media="all">
+	<link rel="stylesheet" href="/static/css/register_step1.css" type="text/css" id="stepcss">
+	<script src="/static/js/jquery-3.4.1.min.js"></script>
+	<script src="/static/js/rePw.js" charset="utf-8"></script>
+	<script type="text/javascript" id="">
+		$(function () {
+			$('#resetBtn').click(function () {
+				// 1. 获取账号，获取原密码
+				var sUid = $('#uid').val()
+				var sOpw = $('#oPw').val()
+
+				// 2. 获取新密码和再次输入的新密码
+				var sNpw = $('#nPw').val()
+				var sRpw = $('#rPw').val()
+				if (sNpw != sRpw) {
+					alert('新密码不一致！')
+				}
+
+				$.ajaxSetup({
+					data: {csrfmiddlewaretoken: '{{ csrf_token }}', }
+				})
+
+				$.ajax({
+					'url': '/reset_password_check',
+					'type': 'POST',
+					'data': {
+						'uid': sUid,
+						'upassword': sOpw,
+						'password': sNpw,
+						'rpassword': sRpw,
+					},
+					'dataType': 'json',
+				}).done(function (data) {
+					// 1. {res:1} 成功
+					if (data.res == 1) {
+						alert('成功！')
+						location.href = '/login'
+					}
+					// 2. {res:0} 失败 ( 原密码错误 )
+					else {
+						alert('账号或密码错误！回到首页')
+						location.href = '/reset_password'
+					}
+				})
+			})
+		})
+	</script>
+</head>
+
+<body>
+	{% csrf_token %}
+	<div id="logo" class="logo"></div>
+	<div class="box">
+		<div class="step-guide">
+			<div id="step1" class="step stepcurrent">
+				<div class="number">1</div>
+				<div class="line">
+					<p id="line1" class="line-state"></p>
+				</div>
+				<div>
+					填写原密码
+				</div>
+			</div>
+			<div id="step2" class="step">
+				<div class="number">2</div>
+				<div class="line">
+					<p id="line2" class="line-state"></p>
+				</div>
+				<div>
+					填写新密码
+				</div>
+			</div>
+			<div id="step3" class="step">
+				<div class="number">3</div>
+				<div>
+					完成重置
+				</div>
+			</div>
+		</div>
+		<div class="register">
+			<div class="input-wrapper">
+				<input type="text" name="" class="step1" id="uid" value="" placeholder="输入账号">
+				<input type="password" name="" class="step2" id="nPw" value="" placeholder="输入新密码">
+				<!-- <div class="input-wrapper"> -->
+				<!--     <input type="text" name="" class="step2" id="uname" value="" placeholder="输入账户名"> -->
+				<!-- </div> -->
+			</div>
+			<div class="emptyItem"></div>
+			<div class="input-wrapper">
+				<input type="password" name="" class="step1" id="oPw" value="" placeholder="输入原密码">
+				<input type="password" name="" class="step2" id="rPw" value="" placeholder="重复新密码">
+			</div>
+			<div class="emptyItem"></div>
+			<div class="input-wrapper">
+				<input type="button" name="" id="NextStep" value="下一步">
+				<input type="button" name="" class="step3" id="resetBtn" value="重置密码">
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

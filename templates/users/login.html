@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>登录界面</title>
+	<link rel="stylesheet" href="/static/css/login.css" type="text/css" media="all">
+	<script type="text/javascript" src="/static/js/jquery-3.4.1.min.js" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function () {
+			$('#btnLogin').click(function () {
+				uid = $('#uid').val()
+				upassword = $('#upassword').val()
+				ucode = $('#ucode').val()
+
+				$.ajaxSetup({
+					data: {csrfmiddlewaretoken: '{{ csrf_token }}', }
+				})
+
+				$.ajax({
+					'url': '/login_ajax_check',
+					'type': 'POST',
+					'data': {
+						'uid': uid,
+						'upassword': upassword,
+						'ucode': ucode,
+					},
+					'dataType': 'json',
+				}).done(function (data) {
+					if (data.res == '1') {
+						alert('登录成功!')
+						location.href = '/index'
+					}
+					else if (data.res == 2) {
+						alert('验证码错误')
+						location.href = '/login'
+					}
+					else {
+						alert('用户名或密码错误')
+						location.href = '/login'
+					}
+				})
+			})
+		})
+		function resetPassword() {
+			location.href = '/reset_password'
+		}
+		function registerAccount() {
+			location.href = '/register_id'
+		}
+
+		window.onload = function () {
+			var oDiv = document.getElementById('logo')
+			oDiv.onclick = function () {
+				location.href = '/login'
+			}
+		}
+	</script>
+	<style type="text/css" media="screen">
+		#None {
+			display: inline-block;
+		}
+
+		#None input {
+			width: 60px;
+			height: 30px;
+			font-size: 13px;
+			color: #666;
+			text-align: center;
+			line-height: 30px;
+			margin-left: 4px;
+			border-radius: 2px;
+			display: inline-block;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="logo" class="logo"></div>
+
+	<form action="/login_ajax_check" method="POST" accept-charset="utf-8">
+		{% csrf_token %}
+		<div class="login">
+			<div class="row">账号：<input type="text" name="uid" id="uid" value="{{ uid }}" placeholder="输入账号" required="">
+				<div id="None"><input type="button" name="" id="fgId" value="注册账号" onclick="registerAccount()">
+				</div>
+			</div>
+			<div class="row1">密码：<input name="upassword" id="upassword" type="password" value="" placeholder="输入密码"
+					required="">
+				<div id="None"><input type="button" class="fgPw" value="忘记密码" onclick="resetPassword()"></div>
+			</div>
+			<div class="row">
+				验证码：<input id="ucode" name="ucode" type="text" value="" placeholder="输入验证码">
+				<img src="/verify_code" class="vcode" style="float:
+right;position: relative; left:-20px; top: 10px;">
+			</div>
+		</div>
+		<input class="sub" id="btnLogin" type="submit" value="登录" />
+	</form>

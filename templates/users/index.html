@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>天悦好书</title>
+	<link rel="stylesheet" href="/static/css/index.css" type="text/css" media="screen" charset="utf-8">
+	<style type="text/css" media="screen">
+		.books {
+			width: 1200px;
+			height: 290px;
+			margin: 0 300px;
+			float: left;
+			position: relative;
+			padding-top: 40px;
+		}
+		.recom_books {
+			list-style: none;
+			float: left;
+			padding-left: 80px;
+			margin: 20px 20px;
+		}
+		.recom_bpic {
+			width: 156px;
+			height: 208px;
+			transition: all 200ms ease;
+		}
+		.recom_bpic:hover {
+			width: 180px;
+			height: 240px;
+		}
+		
+	</style>
+</head>
+
+<body>
+	{% csrf_token %}
+	<div class="box">
+		<a href="/index"><img src="/static/images/web-logo.png" alt="logo" width="160px" height="32px"></a>
+		<ul>
+			<li><a class="button" href="/index">首页</a></li>
+			<li><a class="button" href="#">分类</a></li>
+			<li><a class="button" href="#">征文大赛</a></li>
+			<li><a class="button" href="create">下载</a></li>
+			<li><input type="text" name="" value="" id="" placeholder="作者/书名"></li>
+		</ul>
+	</div>
+	<div class="recom">
+		<div class="books">
+			{% for book in recom_books %}
+				<ul class="recom_books">
+					<!-- <li class="recom_bintro">{{ book.bintro }}</li> -->
+					<li><a href="/book_detail{{ book.id }}"><img class="recom_bpic" src="{{ book.bpic }}" alt=""></a></li>
+				</ul>
+			{% endfor %}
+		</div>
+	</div>
+</body>
+</html>

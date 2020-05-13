@@ -1,0 +1,11 @@
+.step1 {
+	display: none;
+}
+
+.step2 {
+	display: block;
+}
+
+.step3 {
+	display: none;
+}
