@@ -5,31 +5,86 @@
 	<meta name="viewport" content="width=device-width">
 	<title>天悦好书</title>
 	<link rel="stylesheet" href="/static/css/index.css" type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="/static/css/scrollbar.css" type="text/css" media="all">
 	<style type="text/css" media="screen">
 		.books {
-			width: 1200px;
+			width: 800px;
 			height: 290px;
-			margin: 0 300px;
-			float: left;
-			position: relative;
-			padding-top: 40px;
+			padding: 50px 0 0 0;
+			margin: 0 auto 0;
 		}
-		.recom_books {
+		.book,
+		.book img,
+		.book::after,
+		.book::before {
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+		}
+		.list-inline {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		.list-inline {
+			padding-left: 0;
 			list-style: none;
-			float: left;
-			padding-left: 80px;
-			margin: 20px 20px;
 		}
-		.recom_bpic {
+		.list-inline > li {
+			display: inline-block;
+			margin-left: 2em;
+		}
+		.list-inline > li:first-child {
+			margin-left: 0;
+		}
+		.book {
+			cursor: pointer;
+			float: left;
 			width: 156px;
 			height: 208px;
-			transition: all 200ms ease;
+			position: relative;
+			background: #e3d1bd;
+			z-index: 1;
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 9px 20px 0 rgba(0, 0, 0, 0.25);
+			overflow: hidden;
+			-webkit-transition: box-shadow 0.3s linear;
+			transition: box-shadow 0.3s linear;
 		}
-		.recom_bpic:hover {
-			width: 180px;
-			height: 240px;
+		.book img {
+			width: inherit;
+			height: inherit;
+			-webkit-transform-origin: 0 50%;
+			-ms-transform-origin: 0 50%;
+			transform-origin: 0 50%;
+			-webkit-transform: rotateY(0);
+			transform: rotateY(0);
+			-webkit-transition: all 0.45s ease;
+			transition: all 0.45s ease;
 		}
-		
+		.book:hover {
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25), 0 9px 20px 0 rgba(0, 0, 0, 0.45);
+		}
+		.book:hover img {
+			-webkit-transform: rotateY(-25deg);
+			transform: rotateY(-25deg);
+			box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.2);
+		}
+		.book::after,
+		.book::before {
+			content: '';
+			display: block;
+			width: inherit;
+			height: inherit;
+			position: absolute;
+			z-index: -1;
+			top: 0;
+			background: #e3d1bd;
+			border: 1px solid #d9d9d9;
+		}
+		.book::before {
+			left: -3px;
+		}
+		.book::after {
+			left: -6px;
+		}
 	</style>
 </head>
 
@@ -47,12 +102,16 @@
 	</div>
 	<div class="recom">
 		<div class="books">
-			{% for book in recom_books %}
-				<ul class="recom_books">
+				<ul class="list-inline">
 					<!-- <li class="recom_bintro">{{ book.bintro }}</li> -->
-					<li><a href="/book_detail{{ book.id }}"><img class="recom_bpic" src="{{ book.bpic }}" alt=""></a></li>
-				</ul>
+			{% for book in recom_books %}
+					<li class="book">
+						<a href="/book_detail{{ book.id }}">
+							<img src="{{ book.bpic }}" alt="">
+						</a>
+					</li>
 			{% endfor %}
+				</ul>
 		</div>
 	</div>
 </body>
