@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width">
 		<title>书籍详情</title>
 		<link rel="stylesheet" href="/static/css/book_detail.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="/static/css/scrollbar.css" type="text/css" media="all">
 		<style type="text/css" media="screen">
 			.bookInfor {
 				width: 1000px;
@@ -140,7 +141,7 @@
 							<i class="price">￥{{ book.bprice }}</i>
 						</p>
 						<div class="readBtn">
-							<a href="/read_book" target="_blank" class="readNow">免费试读</a>
+							<a href="/read_book{{ book.id }}" target="_blank" class="readNow">免费试读</a>
 						</div>
 						<div class="buyBtn">
 							<span class="buyBook">

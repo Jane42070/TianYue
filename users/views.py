@@ -175,6 +175,8 @@ def book_detail(request, bid):
     return render(request, 'users/book_detail.html', {'book': book})
 
 
-def read_book(request):
+def read_book(request, bid):
     '''读书'''
-    return render(request, 'users/read_book.html', {})
+    book = BookInfo.objects.get(id=bid)
+    print('Reading book:' + book.bname)
+    return render(request, 'users/read_book.html', {'book': book})

@@ -20,5 +20,5 @@ urlpatterns = [
     # 书籍详情
     re_path(r'^book_detail(?P<bid>\d+)$', views.book_detail),
     # 读书
-    re_path(r'^read_book$', views.read_book),
+    re_path(r'^read_book(?P<bid>\d+)$', views.read_book),
 ]
