@@ -10,31 +10,43 @@ import random
 # request 包含浏览器请求的信息
 
 
+def login(request):
+    '''登录页面'''
+    print(request.path)
+    if 'uid' in request.COOKIES:
+        # 获取记住的用户 id
+        u_id = request.COOKIES['uid']
+        # 登录后 session 记住登录状态
+        request.session['isLogin'] = 1
+    else:
+        u_id = ''
+    return render(request, 'users/login.html', {'uid': u_id})
+
+
 # Create your views here.
 def index(request):
     '''首页'''
     recom_books = []
     books = BookInfo.objects.all()
+    # 从 session 获取登录状态
+    isLogin = request.session['isLogin']
+    # 获取登录的用户 id
+    u_id = request.COOKIES['uid']
+    user = UserInfo.objects.get(uid=u_id)
+    print(f'isLogin: {isLogin}')
     # 随机推送图书
     for i in range(4):
         recom_books.append(books[random.randrange(1, len(books))])
 
     print(recom_books)
-    return render(request, 'users/index.html', {
-        'books': books,
-        'recom_books': recom_books,
-    })
 
-
-def login(request):
-    '''登录页面'''
-    print(request.path)
-    if 'uid' in request.COOKIES:
-        # 获取记住的用户名
-        u_id = request.COOKIES['uid']
-    else:
-        u_id = ''
-    return render(request, 'users/login.html', {'uid': u_id})
+    return render(
+        request, 'users/index.html', {
+            'books': books,
+            'recom_books': recom_books,
+            'isLogin': isLogin,
+            'user': user,
+        })
 
 
 def login_ajax_check(request):
@@ -95,8 +107,12 @@ def register(request):
     print(uname)
     print(udate)
     print(uemail)
-    UserInfo.objects.create_user(uid, upassword, uname, udate, uemail, uphone)
-    return render(request, 'users/login.html', {})
+    if uid.isnumeric():
+        UserInfo.objects.create_user(uid, upassword, uname, udate, uemail,
+                                     uphone)
+        return render(request, 'users/login.html', {})
+    else:
+        return render(request, 'users/login.html', {})
 
 
 def reset_password(request):
@@ -185,3 +201,12 @@ def read_book(request, bid):
     book = BookInfo.objects.get(id=bid)
     print('Reading book:' + book.bname)
     return render(request, 'users/read_book.html', {'book': book})
+
+
+def user_index(request, u_id):
+    '''用户个人界面'''
+    # 获取用户信息
+    user = UserInfo.objects.get(uid=u_id)
+    return render(request, 'users/user_index.html', {
+        'user': user,
+    })

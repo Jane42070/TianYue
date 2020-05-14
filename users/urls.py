@@ -21,4 +21,6 @@ urlpatterns = [
     re_path(r'^book_detail(?P<bid>\d+)$', views.book_detail),
     # 读书
     re_path(r'^read_book(?P<bid>\d+)$', views.read_book),
+    # 用户个人界面
+    re_path(r'^user_index(?P<u_id>\d+)$', views.user_index),
 ]
