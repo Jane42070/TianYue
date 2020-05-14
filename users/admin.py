@@ -15,11 +15,11 @@ class UserInfoAdmin(admin.ModelAdmin):
 
 
 class BookInfoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'bname', 'bauthor', 'bout', 'bdate', 'bprice']
+    list_display = ['id', 'bname', 'bauthor', 'btype', 'bdate', 'bprice']
     list_per_page = 20
     actions_on_bottom = True
     actions_on_top = False
-    list_filter = ['bout']
+    list_filter = ['btype']
 
 
 class CommentInfoAdmin(admin.ModelAdmin):

@@ -37,7 +37,7 @@ class UserInfoManager(models.Manager):
 class BookInfoManager(models.Manager):
     '''书信息管理类'''
     def create_book(self, bname, bout, bauthor, bdate, bpic, bintro, bcontent,
-                    bprice):
+                    bprice, btype):
         '''创建图书'''
         model_class = self.model
         book = model_class()
@@ -49,6 +49,7 @@ class BookInfoManager(models.Manager):
         book.bintro = bintro
         book.bcontent = bcontent
         book.bprice = bprice
+        book.btype = btype
         book.save()
         return book
 
@@ -64,6 +65,7 @@ class BookInfoManager(models.Manager):
         book.bintro = linear_list[5]
         book.bcontent = linear_list[6]
         book.bprice = linear_list[7]
+        book.btype = linear_list[8]
         book.save()
         return book
 
@@ -122,11 +124,11 @@ class UserInfo(models.Model):
 class BookInfo(models.Model):
     '''书信息模型类'''
     # 书名
-    bname = models.CharField(max_length=20, unique=True, blank=True)
+    bname = models.CharField(max_length=200, blank=True)
     # 出版社
-    bout = models.CharField(max_length=20, blank=True, default='未知')
+    bout = models.CharField(max_length=40, blank=True, default='未知')
     # 作者
-    bauthor = models.CharField(max_length=20, blank=True, default='不详')
+    bauthor = models.CharField(max_length=80, blank=True, default='不详')
     # 日期
     bdate = models.DateField(default='1970-01-01')
     # 封面
@@ -137,14 +139,16 @@ class BookInfo(models.Model):
     bcontent = models.CharField(max_length=20, default='0')
     # 价格
     bprice = models.DecimalField(default=20.00,
-                                 max_digits=5,
+                                 max_digits=10,
                                  decimal_places=2,
                                  blank=True)
+    # 分类
+    btype = models.CharField(default='小说', max_length=20)
 
     objects = BookInfoManager()
 
     def __str__(self):
-        return self.bname
+        return self.bname + ':' + self.btype
 
     class Meta():
         db_table = 'book_info'
