@@ -9,16 +9,15 @@ class UserInfoAdmin(admin.ModelAdmin):
     ]
     # 每页显示 10 条数据
     list_per_page = 20
-    actions_on_bottom = True
-    actions_on_top = False
+    actions_on_top = True
+    # 根据用户性别筛选，显示右侧过滤栏
     list_filter = ['ugender']
 
 
 class BookInfoAdmin(admin.ModelAdmin):
     list_display = ['id', 'bname', 'bauthor', 'btype', 'bdate', 'bprice']
-    list_per_page = 20
-    actions_on_bottom = True
-    actions_on_top = False
+    list_per_page = 30
+    actions_on_top = True
     list_filter = ['btype']
 
 

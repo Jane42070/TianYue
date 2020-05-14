@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 # Create your models here.
@@ -106,6 +107,8 @@ class UserInfo(models.Model):
     uaddr = models.CharField(max_length=100, default='未知')
     # 用户手机
     uphone = models.CharField(max_length=20, blank=True)
+    # 用户头像
+    #  uimage = models.ImageField(upload_to='users')
     # 用户简介
     ucomment = models.CharField(max_length=100,
                                 blank=True,
@@ -124,26 +127,35 @@ class UserInfo(models.Model):
 class BookInfo(models.Model):
     '''书信息模型类'''
     # 书名
-    bname = models.CharField(max_length=200, blank=True)
+    bname = models.CharField(max_length=200, blank=True, verbose_name='书名')
     # 出版社
-    bout = models.CharField(max_length=40, blank=True, default='未知')
+    bout = models.CharField(max_length=40,
+                            blank=True,
+                            default='未知',
+                            verbose_name='出版社')
     # 作者
-    bauthor = models.CharField(max_length=80, blank=True, default='不详')
+    bauthor = models.CharField(max_length=80,
+                               blank=True,
+                               default='不详',
+                               verbose_name='作者')
     # 日期
-    bdate = models.DateField(default='1970-01-01')
+    bdate = models.DateField(default='1970-01-01', verbose_name='出版日期')
     # 封面
-    bpic = models.CharField(max_length=200, default='暂无图片')
+    bpic = models.CharField(max_length=200, default='暂无图片', verbose_name='封面')
     # 简介
-    bintro = models.TextField(max_length=1000, default='此书暂无简介')
+    bintro = models.TextField(max_length=1000,
+                              default='此书暂无简介',
+                              verbose_name='简介')
     # 字数
-    bcontent = models.CharField(max_length=20, default='0')
+    bcontent = models.CharField(max_length=20, default='0', verbose_name='字数')
     # 价格
     bprice = models.DecimalField(default=20.00,
                                  max_digits=10,
                                  decimal_places=2,
-                                 blank=True)
+                                 blank=True,
+                                 verbose_name='价格')
     # 分类
-    btype = models.CharField(default='小说', max_length=20)
+    btype = models.CharField(default='小说', max_length=20, verbose_name='分类')
 
     objects = BookInfoManager()
 
@@ -163,7 +175,7 @@ class CommentInfo(models.Model):
     cstar = models.IntegerField(null=True)
     # 用户 id
     cuser = models.ForeignKey('UserInfo', on_delete=models.CASCADE)
-    # 书 id
+    # 自关联属性：书 id
     cbook = models.ForeignKey('BookInfo', on_delete=models.CASCADE)
 
     objects = CommentInfoManager()
