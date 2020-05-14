@@ -26,6 +26,7 @@ class CommentInfoAdmin(admin.ModelAdmin):
     list_display = ['id', 'cbook', 'cuser', 'cstar', 'ccomment']
 
 
+# 注册模型类
 admin.site.register(UserInfo, UserInfoAdmin)
 admin.site.register(BookInfo, BookInfoAdmin)
 admin.site.register(CommentInfo, CommentInfoAdmin)

@@ -15,6 +15,7 @@ def index(request):
     '''首页'''
     recom_books = []
     books = BookInfo.objects.all()
+    # 随机推送图书
     for i in range(4):
         recom_books.append(books[random.randrange(1, len(books))])
 
@@ -55,8 +56,7 @@ def login_ajax_check(request):
         # 验证码错误
         return JsonResponse({'res': 2})
 
-    # 实际开发：根据用户名和密码查找数据库
-    # 模拟：smart 123
+    # 根据用户名和密码查找数据库
     user = UserInfo.objects.filter(uid=u_id)
     if user.exists():
         upassword = UserInfo.objects.get(uid=u_id).upassword
@@ -67,11 +67,9 @@ def login_ajax_check(request):
             return response
         else:
             return JsonResponse({'res': 0})
-            #  return redirect('/login')
     else:
         print('用户名或密码错误')
         return JsonResponse({'res': 0})
-        #  return redirect('/login')
 
 
 def register_id(request):
@@ -81,6 +79,7 @@ def register_id(request):
 
 def register(request):
     '''注册检查'''
+    # 接收 ajax POST 请求发送的数据
     uid = request.POST.get('uid')
     upassword = request.POST.get('upassword')
     uname = request.POST.get('uname')
@@ -88,6 +87,7 @@ def register(request):
     uemail = request.POST.get('uemail')
     uphone = request.POST.get('uphone')
 
+    # 如果昵称或者日期为空就默认为当前 id 和 今天
     if uname == '' or udate == '':
         uname = uid
         udate = date.today()
@@ -106,19 +106,24 @@ def reset_password(request):
 
 def reset_password_check(request):
     '''重置密码检查'''
+    # 取得网页 ajax 提交的值
     uid = request.POST.get('uid')
     upassword = request.POST.get('upassword')
     password = request.POST.get('password')
     rpassword = request.POST.get('rpassword')
+    # 通过 uid 查找数据库中有无此对象，有则进行密码的对比
     user = UserInfo.objects.filter(uid=uid)
     if user.exists() and password == rpassword:
         user = UserInfo.objects.filter(uid=uid)[0]
         if upassword == user.upassword:
             user.upassword = password
             user.save()
+            # 成功返回 { 'res': 1 }
             return JsonResponse({'res': 1})
         else:
+            # 失败返回 { 'res': 0 }
             return JsonResponse({'res': 0})
+    # 无此对象，失败
     else:
         return JsonResponse({'res': 0})
 
@@ -158,8 +163,6 @@ def verify_code(request):
     del draw
     # 存入 session，用于做进一步验证
     request.session['verifycode'] = rand_str
-    #  print(rand_str)
-    #  print(request.session['verifycode'])
     # 内存文件操作
     buf = BytesIO()
     # 将图片保存在内存中，文件类型为 png
@@ -170,6 +173,7 @@ def verify_code(request):
 
 def book_detail(request, bid):
     '''书籍详情'''
+    # 获取 id 对应的图书
     book = BookInfo.objects.get(id=bid)
     print(book)
     return render(request, 'users/book_detail.html', {'book': book})
@@ -177,6 +181,7 @@ def book_detail(request, bid):
 
 def read_book(request, bid):
     '''读书'''
+    # 获取 id 对应的图书
     book = BookInfo.objects.get(id=bid)
     print('Reading book:' + book.bname)
     return render(request, 'users/read_book.html', {'book': book})

@@ -2,7 +2,7 @@ from django.urls import re_path
 from users import views
 
 urlpatterns = [
-    # 显示 ajax 登录页面
+    # ajax POST 登录页面
     re_path(r'^login$', views.login, name='login'),
     re_path(r'^index$', views.index, name='index'),
     # login_ajax_check 登录 ajax 检查

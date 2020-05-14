@@ -2,6 +2,7 @@ from django.db import models
 
 
 # Create your models here.
+# 为父类添加新的创建方法
 # 用户信息管理类
 class UserInfoManager(models.Manager):
     '''用户信息管理类'''
@@ -19,7 +20,7 @@ class UserInfoManager(models.Manager):
         return user
 
     def create_user_in_linear_list(self, linear_list):
-        '''创建用户'''
+        '''通过列表或元祖创建用户'''
         model_class = self.model
         user = model_class()
         user.uid = linear_list[0]
@@ -52,7 +53,7 @@ class BookInfoManager(models.Manager):
         return book
 
     def create_book_in_linear_list(self, linear_list):
-        '''创建图书'''
+        '''通过列表或元祖创建图书'''
         model_class = self.model
         book = model_class()
         book.bname = linear_list[0]
@@ -82,6 +83,8 @@ class CommentInfoManager(models.Manager):
         return comment
 
 
+# 重写 __str__ 的返回值
+# 重写 Meta 下的默认数据库名
 # 用户信息模型类
 class UserInfo(models.Model):
     '''用户信息模型类'''
@@ -89,12 +92,19 @@ class UserInfo(models.Model):
     uid = models.CharField(max_length=20, unique=True, blank=True)
     # 用户密码
     upassword = models.CharField(max_length=20)
+    # 用户昵称
     uname = models.CharField(max_length=20, default=uid, blank=True)
+    # 用户性别 默认为男
     ugender = models.BooleanField(default=False)
+    # 用户生日
     udate = models.DateField()
+    # 用户邮箱
     uemail = models.CharField(max_length=40, blank=True)
+    # 用户住址
     uaddr = models.CharField(max_length=100, default='未知')
+    # 用户手机
     uphone = models.CharField(max_length=20, blank=True)
+    # 用户简介
     ucomment = models.CharField(max_length=100,
                                 blank=True,
                                 default='这个人很懒，什么都没有写')
