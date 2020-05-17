@@ -153,7 +153,7 @@
 			float: left;
 			padding-top: 20px;
 		}
-		.islogin span {
+		.islogin .login_beffor {
 			padding: 0 0.4em;
 			height: 25px;
 			line-height: 25px;
@@ -166,7 +166,11 @@
 			border: 1px solid #d2d2d2;
 			display: inline-block;
 		}
-
+		.islogin .uimage {
+			position: fixed;
+			top: 10px;
+			border-radius: 25px;
+		}
 		.button {
 			text-decoration: none;
 			font-size: 16px;
@@ -229,7 +233,8 @@
 					</a>
 				{% else %}
 					<a href="/user_index{{ user.uid }}">
-						<span id="login_box" class="logged_in">{{ user.uname }}
+						<span id="login_box" class="logged_in">
+							<img class="uimage" src="{{ user.uimage }}" width="50px" height="50px"/>
 							<div id="login_box" class="login_affer">
 								<a href="/user_index">
 									<i></i>

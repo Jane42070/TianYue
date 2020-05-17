@@ -7,7 +7,14 @@ from django.conf import settings
 # 用户信息管理类
 class UserInfoManager(models.Manager):
     '''用户信息管理类'''
-    def create_user(self, uid, upassword, uname, udate, uemail, uphone):
+    def create_user(self,
+                    uid,
+                    upassword,
+                    uname,
+                    udate,
+                    uemail,
+                    uphone,
+                    uimage=None):
         '''创建用户'''
         model_class = self.model
         user = model_class()
@@ -108,7 +115,8 @@ class UserInfo(models.Model):
     # 用户手机
     uphone = models.CharField(max_length=20, blank=True)
     # 用户头像
-    #  uimage = models.ImageField(upload_to='users')
+    uimage = models.ImageField(upload_to='users',
+                               default='/static/media/users/default.jpg')
     # 用户简介
     ucomment = models.CharField(max_length=100,
                                 blank=True,
@@ -185,3 +193,11 @@ class CommentInfo(models.Model):
 
     class Meta():
         db_table = 'comment_info'
+
+
+#  class PicTest(models.Model):
+#      '''图片上传'''
+#      pic = models.ImageField(verbose_name='pic', upload_to='users')
+
+#      class Meta():
+#          db_table = 'PicTest'

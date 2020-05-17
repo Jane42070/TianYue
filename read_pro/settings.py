@@ -125,3 +125,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+# 设置 media 目录
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')

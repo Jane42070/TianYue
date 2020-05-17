@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from users.models import UserInfo, BookInfo, CommentInfo
+from django.conf import settings
 from datetime import date
 from PIL import Image, ImageDraw, ImageFont
 from django.utils.six import BytesIO
@@ -192,7 +193,17 @@ def book_detail(request, bid):
     # 获取 id 对应的图书
     book = BookInfo.objects.get(id=bid)
     print(book)
-    return render(request, 'users/book_detail.html', {'book': book})
+    # 获取登录状态
+    isLogin = request.session['isLogin']
+    # 获取登录的用户 id
+    u_id = request.COOKIES['uid']
+    user = UserInfo.objects.get(uid=u_id)
+
+    return render(request, 'users/book_detail.html', {
+        'book': book,
+        'isLogin': isLogin,
+        'user': user,
+    })
 
 
 def read_book(request, bid):
@@ -210,3 +221,29 @@ def user_index(request, u_id):
     return render(request, 'users/user_index.html', {
         'user': user,
     })
+
+
+#  def upload_pic(request):
+#      '''上传图片'''
+#      return render(request, 'users/upload_pic.html', {})
+
+#  def handle_pic(request):
+#      '''上传图片处理'''
+#      # 1. 获取上传的图片
+#      pic = request.FILES["pic"]
+#      print(type(pic))
+#      # 小文件放在内存中 < 2.5 mb
+#      # return <class 'django.core.files.uploadedfile.InMemoryUploadedFile'>
+#      # 大文件写入到临时文件
+#      # return <class 'django.core.files.uploadedfile.TemporaryUploadedFile'>
+
+#      # 2. 创建一个文件
+#      save_path = '{}/users/{}'.format(settings.MEDIA_ROOT, pic.name)
+#      with open(save_path, 'wb') as f:
+#          # 3. 获取上传文件的内容并写入到创建的文件中
+#          for content in pic.chunks():
+#              f.write(content)
+#              print(content)
+#      print(pic.chunks())
+#      PicTest.objects.create(pic='users/{}'.format(pic.name))
+#      return HttpResponse("pic.name={}".format(pic.name))
