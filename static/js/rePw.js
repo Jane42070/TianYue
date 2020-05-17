@@ -13,14 +13,14 @@ window.onload = function () {
 
 	oBtn1.onclick = function () {
 		var uid = $('#uid').val()
-		var upassword = $('#oPw').val()
-		if (uid.length < 5 || upassword.length < 6) {
+		var uemail = $('#oEm').val()
+		if (uid.length < 5 || uemail.length < 6) {
 			iStep = 1
 		}
 		else {
 			iStep += 1
 		}
-		// alert(iStep + ':' + uid + ':' + upassword)
+
 		if (iStep == 2) {
 			oStep1.classList = 'step stepcurrent'
 			oStep2.classList = 'step stepcurrent'

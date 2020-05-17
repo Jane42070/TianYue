@@ -125,14 +125,14 @@ def reset_password_check(request):
     '''重置密码检查'''
     # 取得网页 ajax 提交的值
     uid = request.POST.get('uid')
-    upassword = request.POST.get('upassword')
+    uemail = request.POST.get('uemail')
     password = request.POST.get('password')
     rpassword = request.POST.get('rpassword')
     # 通过 uid 查找数据库中有无此对象，有则进行密码的对比
     user = UserInfo.objects.filter(uid=uid)
     if user.exists() and password == rpassword:
         user = UserInfo.objects.filter(uid=uid)[0]
-        if upassword == user.upassword:
+        if uemail == user.uemail:
             user.upassword = password
             user.save()
             # 成功返回 { 'res': 1 }
