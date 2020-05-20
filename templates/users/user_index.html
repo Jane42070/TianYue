@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
-		<title>用户个人界面</title>
-		<script type="text/javascript" id="">
-			
-		</script>
-	</head>
-	<body>
-		<ul>
-			<li>{{ user.uid }}</li>
-			<li>{{ user.uname }}</li>
-			<li>{{ user.uemail }}</li>
-			<li>{{ user.udate }}</li>
-			<li>{{ user.ucomment }}</li>
-			<li><img src="{{ user.uimage }}" alt="头像" width="100px"
-height="100px" /></li>
-		</ul>
-		<a href="/index">返回主页</a>
-	</body>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>用户个人界面</title>
+	<script type="text/javascript" id="">
+
+	</script>
+</head>
+
+<body>
+	<ul>
+		<li>{{ user.uid }}</li>
+		<li>{{ user.uname }}</li>
+		<li>{{ user.uemail }}</li>
+		<li>{{ user.udate }}</li>
+		<li>{{ user.ucomment }}</li>
+		<li><img src="{{ user.uimage }}" alt="头像" width="100px" height="100px" /></li>
+	</ul>
+	<a href="/index">返回主页</a>
+</body>
+
 </html>

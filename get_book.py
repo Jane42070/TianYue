@@ -4,7 +4,6 @@
 from users.models import BookInfo
 import requests
 import lxml
-from lxml import etree
 import time
 import random
 
@@ -77,7 +76,6 @@ def spawn_book():
                     #  print('评分' + stars)
                 except Exception:
                     print('获取出错')
-                global bookinfo
                 bookinfo = (bname, bout, bauthor, bdate, bpic, bintro,
                             bcontent, bprice, btype)
                 print(bookinfo)

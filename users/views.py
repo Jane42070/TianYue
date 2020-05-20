@@ -223,6 +223,12 @@ def user_index(request, u_id):
     })
 
 
+def logout(request):
+    '''注销用户'''
+    request.session['isLogin'] = 0
+    return redirect('/index')
+
+
 #  def upload_pic(request):
 #      '''上传图片'''
 #      return render(request, 'users/upload_pic.html', {})
