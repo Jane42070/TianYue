@@ -18,11 +18,11 @@ urlpatterns = [
     # 验证码
     re_path(r'^verify_code$', views.verify_code),
     # 书籍详情
-    re_path(r'^book_detail(?P<bid>\d+)$', views.book_detail),
+    re_path(r'^book_detail&id=(?P<bid>\d+)$', views.book_detail),
     # 读书
-    re_path(r'^read_book(?P<bid>\d+)$', views.read_book),
+    re_path(r'^read_book&id=(?P<bid>\d+)$', views.read_book),
     # 用户个人界面
-    re_path(r'^user_index(?P<u_id>\d+)$', views.user_index),
+    re_path(r'^user_index&id=(?P<u_id>\d+)$', views.user_index),
     # 注销用户
     re_path(r'^logout$', views.logout),
     # 上传图片

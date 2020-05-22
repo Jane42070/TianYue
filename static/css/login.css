@@ -51,16 +51,3 @@ div {
 	border-top: #cbcbcb solid 1px;
 	border-bottom: #cbcbcb solid 1px;
 }
-
-.sub {
-	outline: none;
-	background: #ff7200;
-	font-size: 18px;
-	color: #fff;
-	height: 50px;
-	width: 320px;
-	border-radius: 2px;
-	margin: 30px auto 0;
-	position: relative;
-	left: 40.82%;
-}

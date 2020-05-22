@@ -5,21 +5,109 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>用户个人界面</title>
-	<script type="text/javascript" id="">
+	<script src="/static/js/jquery-3.4.1.min.js"></script>
+	<style>
+		body {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			font-family: 'SimHei';
+			font-size: 16px;
+			overflow-x: hidden;
+			background-image: url(/static/images/jokul.jpg);
+			background-position: 0 -32em;
+			background-size: 100%;
+		}
 
-	</script>
+		a,
+		em,
+		span {
+			text-decoration: none;
+			color: #000;
+			font-weight: normal;
+			font-style: normal;
+		}
+
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.inTerface {
+			width: 1180px;
+			height: 1000px;
+			border-radius: 8px;
+			box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.9);
+			position: fixed;
+			padding: 0 10px;
+			margin: 8.5em 21em;
+			background-color: #f0f0f0;
+			transition: all 1s ease;
+		}
+
+
+		.inTerface:hover {
+			border-radius: 18px;
+			box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.9);
+		}
+
+		.cirCle a img {
+			margin: 0 auto 0;
+			display: block;
+			position: relative;
+			top: -2em;
+			padding: 0;
+			border-radius: 50px;
+			box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.9);
+			transition: all 1s ease;
+		}
+
+		.inTerface:hover .cirCle a img {
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+		}
+
+		.cirCle {
+			font-size: 22.5px;
+			font-family: 'PingFang SC';
+			text-align: center;
+		}
+
+		.cirCle .name {
+			position: relative;
+			top: -1.9em;
+			transition: all 1s ease;
+		}
+	</style>
 </head>
 
 <body>
-	<ul>
-		<li>{{ user.uid }}</li>
-		<li>{{ user.uname }}</li>
-		<li>{{ user.uemail }}</li>
-		<li>{{ user.udate }}</li>
-		<li>{{ user.ucomment }}</li>
-		<li><img src="{{ user.uimage }}" alt="头像" width="100px" height="100px" /></li>
-	</ul>
-	<a href="/index">返回主页</a>
+	<div id="inTerface" class="inTerface">
+		<ul>
+			<li class="cirCle">
+				<a href="">
+					<span class="sBimg"></span>
+					<img src="{{ user.uimage }}" alt="头像" width="100px" height="100px" />
+				</a>
+				<span class="name">{{ user.uname }}</span>
+			</li>
+			<div class="box">
+				<li>昵称：{{ user.uname }}</li>
+				<li>账户：{{ user.uid }}</li>
+				{% if user.ugender == False %}
+				<li>性别：女</li>
+				{% else %}
+				<li>性别：男</li>
+				{% endif %}
+				<li>邮箱：{{ user.uemail }}</li>
+				<li>手机：{{ user.uphone }}</li>
+				<li>生日：{{ user.udate }}</li>
+				<li>简介：{{ user.ucomment }}</li>
+			</div>
+		</ul>
+		<a href="/index">返回主页</a>
+	</div>
 </body>
 
 </html>

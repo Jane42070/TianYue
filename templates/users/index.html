@@ -61,7 +61,7 @@
 			height: 68px;
 			min-width: 100%;
 			background-color: rgba(255, 255, 255, 1);
-			padding: 0px 350px;
+			padding: 0 30em;
 			position: fixed;
 			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
 			z-index: 90;
@@ -69,15 +69,14 @@
 
 		.box a img {
 			position: relative;
-			top: -18px;
+			top: -1.5em;
 		}
 
-		ul {
+		.box ul {
 			list-style: none;
-			margin: 0px;
-			padding: 0px;
+			margin: 0 auto 0;
+			padding-left: 12em;
 			display: inline-block;
-			margin-left: 250px;
 		}
 
 		.box ul li {
@@ -213,6 +212,11 @@
 			top: -10px;
 			border-radius: 25px;
 			z-index: 4;
+			transition: all 1s ease;
+		}
+
+		.islogin .uimage:hover {
+			transform: rotateZ(360deg);
 		}
 
 		.islogin .logout {
@@ -292,9 +296,9 @@
 						<span id="unlogin_box" class="login_beffor">登录</span>
 					</a>
 					{% else %}
-					<a href="/user_index{{ user.uid }}">
+					<a href="/user_index&id={{ user.uid }}">
 						<span id="login_box" class="logged_in">
-							<img class="uimage" src="{{ user.uimage }}" width="50px" height="50px" />
+							<img id="uimage" class="uimage" src="{{ user.uimage }}" width="50px" height="50px" />
 							<a class="logout" id="logout" href="/logout">注销</a>
 							<div id="login_box" class="login_affer">
 								<a href="/user_index">
@@ -315,7 +319,7 @@
 				<!-- <li class="recom_bintro">{{ book.bintro }}</li> -->
 				{% for book in recom_books %}
 				<li class="book">
-					<a href="/book_detail{{ book.id }}" title="{{ book.bname }}">
+					<a href="/book_detail&id={{ book.id }}" title="{{ book.bname }}">
 						<img src="{{ book.bpic }}" alt="">
 					</a>
 				</li>

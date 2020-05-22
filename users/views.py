@@ -4,7 +4,7 @@ from users.models import UserInfo, BookInfo, CommentInfo
 from django.conf import settings
 from datetime import date
 from PIL import Image, ImageDraw, ImageFont
-from django.utils.six import BytesIO
+from six import BytesIO
 import random
 
 # request 就是 HttpRequest 的对象
@@ -29,18 +29,26 @@ def index(request):
     '''首页'''
     recom_books = []
     books = BookInfo.objects.all()
-    # 从 session 获取登录状态
-    isLogin = request.session['isLogin']
-    # 获取登录的用户 id
-    u_id = request.COOKIES['uid']
-    user = UserInfo.objects.get(uid=u_id)
-    print(f'isLogin: {isLogin}')
     # 随机推送图书
     for i in range(4):
         recom_books.append(books[random.randrange(1, len(books))])
 
     print(recom_books)
-
+    # 从 session 获取登录状态
+    if 'isLogin' not in request.session or request.session['isLogin'] == 0:
+        request.session['isLogin'] = 0
+        isLogin = request.session['isLogin']
+        return render(request, 'users/index.html', {
+            'books': books,
+            'recom_books': recom_books,
+            'isLogin': isLogin,
+        })
+    else:
+        isLogin = request.session['isLogin']
+        # 获取登录的用户 id
+        u_id = request.COOKIES['uid']
+        user = UserInfo.objects.get(uid=u_id)
+    #  print(f'isLogin: {isLogin}')
     return render(
         request, 'users/index.html', {
             'books': books,
@@ -195,6 +203,11 @@ def book_detail(request, bid):
     print(book)
     # 获取登录状态
     isLogin = request.session['isLogin']
+    if isLogin == 0:
+        return render(request, 'users/book_detail.html', {
+            'book': book,
+            'isLogin': isLogin,
+        })
     # 获取登录的用户 id
     u_id = request.COOKIES['uid']
     user = UserInfo.objects.get(uid=u_id)
