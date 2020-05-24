@@ -263,13 +263,12 @@ def classify(request, btype, pindex):
     # 返回当页数
     print(paginator.page_range)
     page = paginator.page(pindex)
+    print(page.object_list)
     # 展示分类菜单
     # 获取分类
     btypes = [book.btype for book in list(BookInfo.objects.all())]
     books_btype = list(set(btypes))
-    print(books_btype)
     books_btype.sort(key=btypes.index)
-    print(books_btype)
     # 判断登录状态
     isLogin = request.session['isLogin']
     # 获取登录的用户 id
