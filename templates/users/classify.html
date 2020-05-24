@@ -4,9 +4,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>书籍详情</title>
+	<title>分类</title>
 	<link rel="stylesheet" href="/static/css/scrollbar.css" type="text/css" media="all">
-	<script charset="utf-8">
+	<script type="text/javascript" id="">
 		window.onload = function () {
 			var oDiv2 = document.getElementById('logout')
 			i = -50
@@ -31,7 +31,6 @@
 			background-color: #f0f0f0;
 			font-family: 'Microsoft Yahei';
 			font-size: 16px;
-			z-index: 1;
 		}
 
 		.box {
@@ -41,10 +40,9 @@
 			background-color: rgba(255, 255, 255, 1);
 			padding: 0 30em;
 			position: fixed;
-			z-index: 90;
 			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+			z-index: 90;
 		}
-
 
 		.box a img {
 			position: relative;
@@ -52,8 +50,6 @@
 		}
 
 		.box ul {
-			list-style: none;
-			margin: 0 auto 0;
 			padding-left: 12em;
 			display: inline-block;
 		}
@@ -99,135 +95,6 @@
 			font-size: 14px;
 			color: #9e9e9e;
 			outline: none;
-		}
-
-		a,
-		em,
-		span,
-		i,
-		s {
-			font-size: 12px;
-			font-weight: normal;
-			font-style: normal;
-			color: #9e9e9e;
-			text-decoration: none;
-			outline: none;
-		}
-
-		.bookInfor {
-			width: 1000px;
-			height: 360px;
-			overflow: hidden;
-			background: #fff;
-			position: absolute;
-			margin: 100px 400px 0;
-		}
-
-		.bookInfor .bookL {
-			float: left;
-			width: 267px;
-			height: 358px;
-			border: 1px solid #f0f0f0;
-		}
-
-		.bookInfor .bookL a img {
-			margin: 72px 55px;
-			border-radius: 3px;
-			z-index: 2;
-			box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.9);
-			transition: all 300ms ease;
-		}
-
-		.bookInfor .bookL a img:hover {
-			box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.9);
-		}
-
-		.bookInfor .bookR {
-			float: left;
-			width: 731px;
-			overflow: hidden;
-			padding-bottom: 27px;
-			box-sizing: border-box;
-		}
-
-		.bookR .bookinf01 {
-			padding: 0 20px 10px 30px;
-			height: 72px;
-			border-bottom: 1px solid #f0f0f0;
-		}
-
-		.bookR .bookinf01 h2 a {
-			color: #212121;
-			font-size: 20px;
-		}
-
-		.bookR .bookinf01 span {
-			font-size: 12px;
-			color: #9e9e9e;
-		}
-
-		.bookR .bookinf02 {
-			padding: 24px 40px 0 30px;
-			height: 98px;
-			border-bottom: 1px solid #f0f0f0;
-		}
-
-		.bookR .bookinf03 {
-			padding: 24px 40px 0 30px;
-		}
-
-		.bookR .bookinf03 p {
-			line-height: 18px;
-			height: 54px;
-			font-size: 12px;
-			color: #9e9e9e;
-			overflow: hidden;
-			margin-bottom: 13px;
-			text-overflow: ellipsis;
-			display: -webkit-box;
-			-webkit-line-clamp: 10;
-			-webkit-box-orient: vertical;
-		}
-
-		.readBtn {
-			width: 80px;
-			height: 30px;
-			background-color: #8BC34A;
-			text-align: center;
-			border-radius: 3px;
-			display: inline-block;
-			margin-right: 20px;
-		}
-
-		.readBtn .readNow {
-			font-size: 16px;
-			text-decoration: none;
-			color: #fff;
-			line-height: 30px;
-		}
-
-		.buyBtn {
-			width: 80px;
-			height: 30px;
-			background-color: #f26552;
-			text-align: center;
-			border-radius: 3px;
-			display: inline-block;
-		}
-
-		.buyBtn .buyBook {
-			font-size: 16px;
-			color: #fff;
-			line-height: 30px;
-		}
-
-		em,
-		h2,
-		h1,
-		h3,
-		i {
-			font-style: normal;
-			font-weight: normal;
 		}
 
 		.islogin {
@@ -287,19 +154,70 @@
 			border-bottom: 2px solid #f26552;
 		}
 
-		.readCir {
-			width: 1000px;
-			height: 600px;
-			margin: 35px 25em 30px;
-			background-color: #fafafa;
+		a,
+		em,
+		span,
+		i,
+		s {
+			font-size: 12px;
+			font-weight: normal;
+			font-style: normal;
+			color: #9e9e9e;
+			text-decoration: none;
+			outline: none;
+		}
+
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.btypes {
+			width: 990px;
+			height: 100px;
+			background-color: #fff;
 			position: absolute;
-			top: 460px;
+			padding-right: 10px;
+			margin: 8em 25em 0;
+		}
+
+		.btypes li {
+			float: left;
+			padding-left: 10px;
+		}
+
+		.btypes li a,
+		.btypes li span {
+			font-size: 15px;
+		}
+
+		.books {
+			width: 1000px;
+			background-color: #fff;
+			position: absolute;
+			margin: 18em 25em 0;
+		}
+
+		.books li {
+			float: left;
+			margin: 20px 30px 0;
+		}
+
+		.books li a {
+			font-size: 16px;
+		}
+
+		.pageContr {
+			width: 1000px;
+			background-color: #fff;
+			position: absolute;
+			margin: 16em 25em;
 		}
 	</style>
 </head>
 
 <body>
-	{% csrf_token %}
 	<div class="box">
 		<a href="/index"><img src="/static/images/web-logo.png" alt="logo" width="160px" height="32px"></a>
 		<ul>
@@ -332,45 +250,45 @@
 			</li>
 		</ul>
 	</div>
-	<div class="bookInfor">
-		<div class="bookL">
-			<!-- <s>分类</s> -->
-			<a>
-				<img src="{{ book.bpic }}" alt="{{ book.bname }}" title="{{ book.bname }}">
-				<img src="http://www.ireader.com/static/images/sjxq/shadow.gif" alt="" class="shadow">
-			</a>
-		</div>
-		<div class="bookR">
-			<div class="bookinf01">
-				<h2>
-					<a>{{ book.bname }}</a>
-				</h2>
-				<span class="author" style="margin-right: 12px;">作者：{{ book.bauthor }}</span>
-				<span style="margin-right: 12px;">字数：{{ book.bcontent }}</span>
-				<span>出版社：{{ book.bout }}</span>
-			</div>
-			<div class="bookinf02">
-				<div class="left">
-					<p>
-						<i class="price">￥{{ book.bprice }}</i>
-					</p>
-					<div class="readBtn">
-						<a href="/read_book&id={{ book.id }}" target="_blank" class="readNow">免费试读</a>
-					</div>
-					<div class="buyBtn">
-						<span class="buyBook">
-							立即购买
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="bookinf03">
-				<p>{{ book.bintro }}</p>
-			</div>
-		</div>
+	<div class="btypes">
+		<ul>
+			{% for i in btypes %}
+			{% if i != btype %}
+			<li>
+				<a href="/classify&btype={{ i }}&page=1">{{ i }}</a>
+			</li>
+			{% else %}
+			<li>
+				<span>{{ i }}</span>
+			</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
 	</div>
+	<ul class="books">
+		{% for book in page %}
+		<li>
+			<a href="/book_detail&id={{ book.id }}" target="blank" title="{{ book.bintro}}">
+				<img src="{{ book.bpic }}" alt="">{{ book.bname }}</a>
+		</li>
+		{% endfor %}
+	</ul>
+	<div class="pageContr">
+		{% if page.has_previous %}
+		<a href="/classify&btype={{ btype }}&page={{ page.previous_page_number }}">&lt;上一页</a>
+		{% endif %}
 
-	<div class="readCir">
+		{% for pindex in page.paginator.page_range %}
+		{% if pindex == page.number %}
+		<span>{{ pindex }}</span>
+		{% else %}
+		<a href="/classify&btype={{ btype }}&page={{ pindex }}">{{ pindex }}</a>
+		{% endif %}
+		{% endfor %}
+
+		{% if page.has_next %}
+		<a href="/classify&btype={{ btype }}&page={{ page.next_page_number }}">下一页&gt;</a>
+		{% endif %}
 	</div>
 </body>
 

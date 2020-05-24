@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from users.models import UserInfo, BookInfo, CommentInfo
 from django.conf import settings
+from django.core.paginator import Paginator
 from datetime import date
 from PIL import Image, ImageDraw, ImageFont
 from six import BytesIO
@@ -240,6 +241,49 @@ def logout(request):
     '''注销用户'''
     request.session['isLogin'] = 0
     return redirect('/index')
+
+
+# 前端访问时，需要传递页码
+def classify(request, btype, pindex):
+    '''书籍分类浏览'''
+    # 判断 pindex 是否为空
+    if pindex == '':
+        pindex = 1
+    else:
+        pindex = int(pindex)
+
+    # 1. 查询出某一类的所有书籍
+    type_books = BookInfo.objects.filter(btype=btype)
+    # 2. 分页
+    paginator = Paginator(type_books, 20)
+    # 3. 获取第一页的内容
+    # page 是 paginator 的实例对象
+    # 返回当前页码
+    print(paginator.num_pages)
+    # 返回当页数
+    print(paginator.page_range)
+    page = paginator.page(pindex)
+    # 展示分类菜单
+    # 获取分类
+    btypes = [book.btype for book in list(BookInfo.objects.all())]
+    books_btype = list(set(btypes))
+    print(books_btype)
+    books_btype.sort(key=btypes.index)
+    print(books_btype)
+    # 判断登录状态
+    isLogin = request.session['isLogin']
+    # 获取登录的用户 id
+    u_id = request.COOKIES['uid']
+    user = UserInfo.objects.get(uid=u_id)
+    # 4. 使用模板
+    return render(
+        request, 'users/classify.html', {
+            'page': page,
+            'btype': btype,
+            'btypes': books_btype,
+            'isLogin': isLogin,
+            'user': user,
+        })
 
 
 #  def upload_pic(request):

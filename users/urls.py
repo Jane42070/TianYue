@@ -19,6 +19,9 @@ urlpatterns = [
     re_path(r'^verify_code$', views.verify_code),
     # 书籍详情
     re_path(r'^book_detail&id=(?P<bid>\d+)$', views.book_detail),
+    # 书籍分类
+    re_path(r'^classify&btype=(?P<btype>\S*)&page=(?P<pindex>\d*)$',
+            views.classify),
     # 读书
     re_path(r'^read_book&id=(?P<bid>\d+)$', views.read_book),
     # 用户个人界面
