@@ -39,10 +39,15 @@
 			height: 68px;
 			min-width: 100%;
 			background-color: rgba(255, 255, 255, 1);
-			padding: 0 30em;
 			position: fixed;
+			top: 0;
 			z-index: 90;
 			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+		}
+
+		.box .NavigationBar {
+			width: 1000px;
+			margin: 0 auto;
 		}
 
 
@@ -119,8 +124,8 @@
 			height: 360px;
 			overflow: hidden;
 			background: #fff;
-			position: absolute;
-			margin: 100px 400px 0;
+			position: relative;
+			margin: 100px auto 0;
 		}
 
 		.bookInfor .bookL {
@@ -290,10 +295,9 @@
 		.readCir {
 			width: 1000px;
 			height: 600px;
-			margin: 35px 25em 30px;
+			margin: 35px auto 30px;
 			background-color: #fafafa;
-			position: absolute;
-			top: 460px;
+			position: relative;
 		}
 	</style>
 </head>
@@ -301,36 +305,41 @@
 <body>
 	{% csrf_token %}
 	<div class="box">
-		<a href="/index"><img src="/static/images/web-logo.png" alt="logo" width="160px" height="32px"></a>
-		<ul>
-			<li><a class="button" href="/index">首页</a></li>
-			<li><a class="button" href="#">分类</a></li>
-			<li><a class="button" href="#">征文大赛</a></li>
-			<li><a class="button" href="create">下载</a></li>
-			<li><input type="text" name="" value="" class="search_book" id="search_book" placeholder="作者/书名"></li>
-			<li>
-				<div class="islogin">
-					{% if isLogin != 1 %}
-					<a href="/login">
-						<span id="unlogin_box" class="login_beffor">登录</span>
-					</a>
-					{% else %}
-					<a href="/user_index&id={{ user.uid }}">
-						<span id="login_box" class="logged_in">
-							<img class="uimage" src="{{ user.uimage }}" width="50px" height="50px" />
-							<a class="logout" id="logout" href="/logout">注销</a>
-							<div id="login_box" class="login_affer">
-								<a href="/user_index">
-									<i></i>
-									<s></s>
-								</a>
-							</div>
-						</span>
-					</a>
-					{% endif %}
-				</div>
-			</li>
-		</ul>
+		<div class="NavigationBar">
+			<a href="/index"><img src="/static/images/web-logo.png" alt="logo" width="160px" height="32px"></a>
+			<ul>
+				<li><a class="button" href="/index">首页</a></li>
+				<li><a class="button" href="/classify&btype=小说&page=1">分类</a></li>
+				<li><a class="button" href="#">征文大赛</a></li>
+				<li><a class="button" href="create">下载</a></li>
+				<li>
+					<form action=""><input type="text" name="" value="" class="search_book" id="search_book"
+							placeholder="作者/书名"></form>
+				</li>
+				<li>
+					<div class="islogin">
+						{% if isLogin != 1 %}
+						<a href="/login">
+							<span id="unlogin_box" class="login_beffor">登录</span>
+						</a>
+						{% else %}
+						<a href="/user_index&id={{ user.uid }}">
+							<span id="login_box" class="logged_in">
+								<img class="uimage" src="{{ user.uimage }}" width="50px" height="50px" />
+								<a class="logout" id="logout" href="/logout">注销</a>
+								<div id="login_box" class="login_affer">
+									<a href="/user_index">
+										<i></i>
+										<s></s>
+									</a>
+								</div>
+							</span>
+						</a>
+						{% endif %}
+					</div>
+				</li>
+			</ul>
+		</div>
 	</div>
 	<div class="bookInfor">
 		<div class="bookL">

@@ -38,10 +38,15 @@
 			height: 68px;
 			min-width: 100%;
 			background-color: rgba(255, 255, 255, 1);
-			padding: 0 30em;
 			position: fixed;
+			top: 0;
 			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
 			z-index: 90;
+		}
+
+		.box .NavigationBar {
+			width: 1000px;
+			margin: 0 auto;
 		}
 
 		.box a img {
@@ -177,9 +182,9 @@
 			width: 990px;
 			height: 100px;
 			background-color: #fff;
-			position: absolute;
+			position: relative;
 			padding-right: 10px;
-			margin: 8em 25em 0;
+			margin: 8em auto 0;
 		}
 
 		.btypes li {
@@ -194,61 +199,145 @@
 
 		.books {
 			width: 1000px;
-			background-color: #fff;
-			position: absolute;
-			margin: 18em 25em 0;
+			height: 1000px;
+			background-color: #e3d1bd;
+			margin: 0 auto 0;
+			position: relative;
+			top: 30px;
 		}
 
-		.books li {
+		.book,
+		.book img,
+		.book::after,
+		.book::before {
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+		}
+
+		.list-inline {
+			display: table-cell;
+			vertical-align: middle;
+		}
+
+		.list-inline {
+			padding-left: 0;
+			list-style: none;
+		}
+
+		.list-inline>li {
+			display: inline-block;
+			margin-left: 2em;
+			margin-top: 2em;
+		}
+
+		.book {
+			cursor: pointer;
 			float: left;
-			margin: 20px 30px 0;
+			width: 156px;
+			height: 208px;
+			position: relative;
+			background: #e3d1bd;
+			z-index: 1;
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 9px 20px 0 rgba(0, 0, 0, 0.25);
+			overflow: hidden;
+			-webkit-transition: box-shadow 0.3s linear;
+			transition: box-shadow 0.3s linear;
 		}
 
-		.books li a {
-			font-size: 16px;
+		.book img {
+			width: inherit;
+			height: inherit;
+			-webkit-transform-origin: 0 50%;
+			-ms-transform-origin: 0 50%;
+			transform-origin: 0 50%;
+			-webkit-transform: rotateY(0);
+			transform: rotateY(0);
+			-webkit-transition: all 0.45s ease;
+			transition: all 0.45s ease;
+		}
+
+		.book:hover {
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25), 0 9px 20px 0 rgba(0, 0, 0, 0.45);
+		}
+
+		.book:hover img {
+			-webkit-transform: rotateY(-25deg);
+			transform: rotateY(-25deg);
+			box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.2);
+		}
+
+		.book::after,
+		.book::before {
+			content: '';
+			display: block;
+			width: inherit;
+			height: inherit;
+			position: absolute;
+			z-index: -1;
+			top: 0;
+			background: #e3d1bd;
+			border: 1px solid #d9d9d9;
+		}
+
+		.book::before {
+			left: -3px;
+		}
+
+		.book::after {
+			left: -6px;
 		}
 
 		.pageContr {
-			width: 1000px;
+			width: 170px;
 			background-color: #fff;
-			position: absolute;
-			margin: 16em 25em;
+			position: relative;
+			margin: 18em auto;
+		}
+
+		.pageContr a,
+		.pageContr span {
+			font-size: 16px;
 		}
 	</style>
 </head>
 
 <body>
 	<div class="box">
-		<a href="/index"><img src="/static/images/web-logo.png" alt="logo" width="160px" height="32px"></a>
-		<ul>
-			<li><a class="button" href="/index">首页</a></li>
-			<li><a class="button" href="#">分类</a></li>
-			<li><a class="button" href="#">征文大赛</a></li>
-			<li><a class="button" href="create">下载</a></li>
-			<li><input type="text" name="" value="" class="search_book" id="search_book" placeholder="作者/书名"></li>
-			<li>
-				<div class="islogin">
-					{% if isLogin != 1 %}
-					<a href="/login">
-						<span id="unlogin_box" class="login_beffor">登录</span>
-					</a>
-					{% else %}
-					<a href="/user_index&id={{ user.uid }}">
-						<span id="login_box" class="logged_in">
-							<img class="uimage" src="{{ user.uimage }}" width="50px" height="50px" />
-							<a class="logout" id="logout" href="/logout">注销</a>
-							<div id="login_box" class="login_affer">
-								<a href="/user_index">
-									<i></i>
-									<s></s>
-								</a>
-							</div>
-						</span>
-					</a>
-					{% endif %}
-				</div>
-			</li>
-		</ul>
+		<div class="NavigationBar">
+			<a href="/index"><img src="/static/images/web-logo.png" alt="logo" width="160px" height="32px"></a>
+			<ul>
+				<li><a class="button" href="/index">首页</a></li>
+				<li><a class="button" href="#">分类</a></li>
+				<li><a class="button" href="#">征文大赛</a></li>
+				<li><a class="button" href="create">下载</a></li>
+				<li>
+					<form action=""><input type="text" name="" value="" class="search_book" id="search_book"
+							placeholder="作者/书名"></form>
+				</li>
+				<li>
+					<div class="islogin">
+						{% if isLogin != 1 %}
+						<a href="/login">
+							<span id="unlogin_box" class="login_beffor">登录</span>
+						</a>
+						{% else %}
+						<a href="/user_index&id={{ user.uid }}">
+							<span id="login_box" class="logged_in">
+								<img class="uimage" src="{{ user.uimage }}" width="50px" height="50px" />
+								<a class="logout" id="logout" href="/logout">注销</a>
+								<div id="login_box" class="login_affer">
+									<a href="/user_index">
+										<i></i>
+										<s></s>
+									</a>
+								</div>
+							</span>
+						</a>
+						{% endif %}
+					</div>
+				</li>
+			</ul>
+		</div>
 	</div>
 	<div class="btypes">
 		<ul>
@@ -265,14 +354,16 @@
 			{% endfor %}
 		</ul>
 	</div>
-	<ul class="books">
-		{% for book in page %}
-		<li>
-			<a href="/book_detail&id={{ book.id }}" target="blank" title="{{ book.bintro}}">
-				<img src="{{ book.bpic }}" alt="">{{ book.bname }}</a>
-		</li>
-		{% endfor %}
-	</ul>
+	<div class="books">
+		<ul class="list-inline">
+			{% for book in page %}
+			<li class="book">
+				<a href="/book_detail&id={{ book.id }}" target="blank" title="{{ book.bintro}}">
+					<img src="{{ book.bpic }}" alt="">{{ book.bname }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
 	<div class="pageContr">
 		{% if page.has_previous %}
 		<a href="/classify&btype={{ btype }}&page={{ page.previous_page_number }}">&lt;上一页</a>

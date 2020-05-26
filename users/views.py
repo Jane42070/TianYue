@@ -285,6 +285,15 @@ def classify(request, btype, pindex):
         })
 
 
+def search(request):
+    """搜索功能
+    1. 根据关键字搜索
+    2. 根据作者名
+    3. 根据书名关键字
+    """
+    pass
+
+
 #  def upload_pic(request):
 #      '''上传图片'''
 #      return render(request, 'users/upload_pic.html', {})
