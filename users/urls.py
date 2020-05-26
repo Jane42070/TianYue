@@ -28,6 +28,8 @@ urlpatterns = [
     re_path(r'^user_index&id=(?P<u_id>\d+)$', views.user_index),
     # 注销用户
     re_path(r'^logout$', views.logout),
+    # 搜索图书
+    re_path(r'^search$', views.search),
     # 上传图片
     #  re_path(r'^upload_pic$', views.upload_pic),
     # 上传图片处理

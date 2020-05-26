@@ -291,7 +291,27 @@ def search(request):
     2. 根据作者名
     3. 根据书名关键字
     """
-    pass
+    keywords = request.GET.get('search_book')
+    books = BookInfo.objects.filter(bname__contains=keywords)
+    book_num = len(books)
+    if book_num == 0:
+        return HttpResponse('没有搜索到你的书')
+
+    # 取得用户是否登录
+    if 'isLogin' not in request.session:
+        isLogin = 0
+    else:
+        isLogin = request.session['isLogin']
+        # 获取登录的用户 id
+        u_id = request.COOKIES['uid']
+        user = UserInfo.objects.get(uid=u_id)
+
+    return render(request, 'users/search.html', {
+        'books': books,
+        'isLogin': isLogin,
+        'user': user,
+        'book_num': book_num,
+    })
 
 
 #  def upload_pic(request):

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>搜索结果</title>
+	<link rel="stylesheet" href="/static/css/scrollbar.css" type="text/css" media="all">
+	<script charset="utf-8">
+		window.onload = function () {
+			var oDiv2 = document.getElementById('logout')
+			i = -50
+			iSpeed = 0.5
+			timer2 = setInterval(function () {
+				i += iSpeed
+				oDiv2.style.left = i + 'px'
+				if (i == 0) {
+					iSpeed = 0.2
+				}
+				else if (i >= 5) {
+					iSpeed = 0
+				}
+			}, 5)
+		}
+	</script>
+	<style type="text/css" media="screen">
+		body {
+			margin: 0;
+			padding: 0;
+			overflow-x: hidden;
+			background-color: #f0f0f0;
+			font-family: 'Microsoft Yahei';
+		}
+
+		a,
+		em,
+		span,
+		i,
+		s {
+			font-size: 12px;
+			font-weight: normal;
+			font-style: normal;
+			color: #9e9e9e;
+			text-decoration: none;
+			outline: none;
+		}
+
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.box {
+			width: 100%;
+			height: 68px;
+			min-width: 100%;
+			background-color: rgba(255, 255, 255, 1);
+			position: fixed;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+			top: 0;
+			z-index: 90;
+		}
+
+		.box .NavigationBar {
+			width: 1000px;
+			margin: 0 auto;
+		}
+
+		.box a img {
+			position: relative;
+			top: -1.5em;
+		}
+
+		.box ul {
+			margin: 0 auto 0;
+			padding-left: 12em;
+			display: inline-block;
+		}
+
+		.box ul li {
+			float: left;
+			margin: 0 10px;
+		}
+
+		.box ul li .search_book {
+			width: 150px;
+			height: 20px;
+			margin: 22px 0;
+			border-radius: 20px;
+			border: 1px solid #9e9e9e;
+			padding-inline-start: 10px;
+			font-size: 14px;
+			color: #9e9e9e;
+			outline: none;
+		}
+
+		.button {
+			text-decoration: none;
+			font-size: 16px;
+			line-height: 68px;
+			color: #9e9e9e;
+			text-align: center;
+			padding: 5px;
+			transition: all 100ms ease;
+		}
+
+		.button:hover {
+			color: #f26552;
+			border-bottom: 2px solid #f26552;
+		}
+
+		.islogin {
+			position: relative;
+			float: left;
+			padding-top: 20px;
+		}
+
+		.islogin .login_beffor {
+			padding: 0 0.4em;
+			height: 25px;
+			line-height: 25px;
+			background: #FFF;
+			text-align: center;
+			font-size: 12px;
+			color: #9e9e9e;
+			border-radius: 5px;
+			cursor: pointer;
+			border: 1px solid #d2d2d2;
+			display: inline-block;
+		}
+
+		.islogin .uimage {
+			position: relative;
+			top: -10px;
+			border-radius: 25px;
+			z-index: 4;
+			transition: all 1s ease;
+		}
+
+		.islogin .uimage:hover {
+			transform: rotateZ(360deg);
+		}
+
+		.islogin .logout {
+			position: relative;
+			top: -28px;
+			left: -50px;
+			background-color: #fff;
+			border: 1px solid #9e9e9e;
+			border-radius: 5px;
+			padding: 2px 5px;
+			text-align: center;
+		}
+
+		.books {
+			position: relative;
+			margin: 100px auto 0;
+			width: 500px;
+		}
+	</style>
+</head>
+
+<body>
+	{% csrf_token %}
+	<div class="box">
+		<div class="NavigationBar">
+			<a href="/index">
+				<img src="/static/images/web-logo.png" alt="logo" width="160px" height="32px">
+			</a>
+			<ul>
+				<li><a class="button" href="/index">首页</a></li>
+				<li><a class="button" href="/classify&btype=小说&page=1">分类</a></li>
+				<li><a class="button" href="#">征文大赛</a></li>
+				<li><a class="button" href="create">下载</a></li>
+				<li>
+					<form action="/search" method="GET">
+						<input type="text" name="search_book" value="" class="search_book" id="search_book"
+							placeholder="作者/书名">
+					</form>
+				</li>
+				<li>
+					<div class="islogin">
+						{% if isLogin != 1 %}
+						<a href="/login">
+							<span id="unlogin_box" class="login_beffor">登录</span>
+						</a>
+						{% else %}
+						<a href="/user_index&id={{ user.uid }}">
+							<span id="login_box" class="logged_in">
+								<img id="uimage" class="uimage" src="{{ user.uimage }}" width="50px" height="50px" />
+								<a class="logout" id="logout" href="/logout">注销</a>
+								<div id="login_box" class="login_affer">
+									<a href="/user_index">
+										<i></i>
+										<s></s>
+									</a>
+								</div>
+							</span>
+						</a>
+						{% endif %}
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="books">
+		<div class="resNum">
+			<span>共{{ book_num }}个结果</span>
+		</div>
+		<ul>
+			{% for book in books %}
+			<li><a href="/book_detail&id={{ book.id }}">{{ book.bname }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</body>
+
+</html>
