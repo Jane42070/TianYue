@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- cSpell:disable -->
 <html>
 
 <head>
@@ -8,21 +9,28 @@
 	<link rel="stylesheet" href="/static/css/scrollbar.css" type="text/css" media="all">
 	<script src="/static/js/jquery-3.4.1.min.js" charset="utf-8"></script>
 	<script charset="utf-8">
-		window.onload = function () {
-			var oDiv2 = document.getElementById('logout')
-			i = -50
-			iSpeed = 0.5
-			timer2 = setInterval(function () {
-				i += iSpeed
-				oDiv2.style.left = i + 'px'
-				if (i == 0) {
-					iSpeed = 0.2
+		$(function () {
+			var $div = $('#logout')
+			var $uimage = $('#uimage')
+			var $totop = $('.totop')
+
+			$uimage.mouseover(function () {
+				$div.stop().animate({'left': 0})
+			}).mouseout(function () {
+				setTimeout(function () {$div.stop().animate({'left': -50})}, 5000)
+			})
+
+			$(window).scroll(function () {
+				if ($('html,body').scrollTop() >= 68) {
+					$totop.stop().fadeIn().click(function () {
+						$('html,body').stop().animate({'scrollTop': 0})
+					})
 				}
-				else if (i >= 5) {
-					iSpeed = 0
+				else if ($('html,body').scrollTop() < 68) {
+					$totop.stop().fadeOut()
 				}
-			}, 5)
-		}
+			})
+		})
 	</script>
 	<style type="text/css" media="screen">
 		body {
@@ -284,6 +292,13 @@
 			background-color: #fff;
 			margin: 10px auto;
 		}
+
+		.totop {
+			position: fixed;
+			right: 120px;
+			bottom: 60px;
+			display: none;
+		}
 	</style>
 </head>
 
@@ -357,6 +372,5 @@
 	<div class="show">
 
 	</div>
+	<img class="totop" src="/static/images/totop.png" alt="" />
 </body>
-
-</html>

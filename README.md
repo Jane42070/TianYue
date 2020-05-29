@@ -1,14 +1,20 @@
 # TianYue
 ![天悦阅读](static/images/web-logo.png)
-- 演示视频，上个视频失效了
-	- 链接:https://pan.baidu.com/s/17MpZ_Rwp0GHt-a2Dszrj-g  密码:g3j6
 ## Beta 0.1
-- 很多没有功能待完成，因为最近家里有事，在家的时间减少
 - 目前用了浏览器的 session 和 cookie 在登录成功之后保存账号，有效期为两周
 - 用到的知识：`django，mysql，mvt(model, view(controller),template，javascript，javascript ajax请求，html，css，python，python爬虫，验证码用的 python 的 pillow 库，每次网页刷新随机生成验证码图片`
 - 验证码用的 `cookie` 传递正确值
-- 代码没有网上复制粘贴，就是想知道自己现在的能力是咋样的
 - 平台：Mac，编辑器：[neovim](https://neovim.io/)
+
+### 功能
+- 搜索图书功能 
+- index 页面展示图书
+- 通过邮箱验证码修改密码
+- 图书评论功能
+- 用户个人信息修改
+- 用户图书阅读记录
+- 用户个人信息界面展示评论记录
+
 ## 页面
 ### 登录页面
 ![LOGIN page](static/screenshot/login_screen.png "opt title")
