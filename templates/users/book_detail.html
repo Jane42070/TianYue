@@ -60,10 +60,29 @@
 			position: fixed;
 			top: 30%;
 			left: 35%;
-			border-radius: 10px;
+			border-radius: 5px;
 			box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
 			z-index: 9999;
 			display: none;
+		}
+
+		.buyWin span {
+			display: block;
+			font-size: 40px;
+			margin: 20px 0 0 40px;
+		}
+
+		.buyWin p {
+			display: block;
+			margin: 40px auto 0;
+			text-align: center;
+			color: #606266;
+			font-size: 20px;
+		}
+
+		.buyWin button {
+			display: block;
+			margin: 30px auto 0;
 		}
 
 		.cancelBtn {
@@ -365,6 +384,14 @@
 			bottom: 60px;
 			display: none;
 		}
+
+		.comment {
+			display: block;
+			position: absolute;
+			bottom: 0;
+			font-size: 14px;
+			outline: none;
+		}
 	</style>
 </head>
 
@@ -448,10 +475,14 @@
 	</div>
 	<div class="shade"></div>
 	<div class="buyWin">
-		<span>你没有钱</span>
+		<span>⚠️</span>
+		<p>你没有钱</p>
 		<button class="cancelBtn">确定</button>
 	</div>
-	<div class="readCir"></div>
+	<div class="readCir">
+		<textarea name="Comment" rows="8" cols="40" class="comment"></textarea>
+		<button>添加评论</button>
+	</div>
 	<img class="totop" src="/static/images/totop.png" alt="" />
 </body>
 

@@ -8,6 +8,7 @@ from PIL import Image, ImageDraw, ImageFont
 from six import BytesIO
 import random
 
+# cSpell:disable
 # request 就是 HttpRequest 的对象
 # request 包含浏览器请求的信息
 
